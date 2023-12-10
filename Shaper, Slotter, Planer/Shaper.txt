@@ -1,0 +1,7 @@
+Defintion
+    A shaper is a reciprocating type of machine tool intended primarily to produce horizontal, vertical or inclined flat surfaces
+
+Principle
+     It operates on the principle of a single-point cutting tool that removes material by linearly moving a cutting tool back and forth across the workpiece mounted on a table. it cuts only during the forward stroke only
+
+    
