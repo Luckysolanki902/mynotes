@@ -5,11 +5,11 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 def get_next_image_name():
-    current_files = glob.glob('images/staticLoading/image*.png') + glob.glob('images/staticLoading/image*.jpg')
+    current_files = glob.glob('images/springs/image*.png') + glob.glob('images/springs/image*.jpg')
     return f"image{len(current_files) + 1}.png"
 
 def add_image_to_html(file_name):
-    html_file = './unit2_1.html'
+    html_file = './unit4_1.html'
 
     with open(html_file, 'r', encoding='utf-8') as file:
         content = file.read()
@@ -17,7 +17,7 @@ def add_image_to_html(file_name):
 
         main_div = soup.find('main')
         new_div = soup.new_tag('div')
-        img_tag = soup.new_tag('img', src=f"images/staticLoading/{file_name}", style="width: 100%;", alt="")
+        img_tag = soup.new_tag('img', src=f"images/springs/{file_name}", style="width: 100%;", alt="")
         new_div.append(img_tag)
         main_div.append(new_div)
 
@@ -25,7 +25,7 @@ def add_image_to_html(file_name):
         file.write(str(soup))
 
 def append_image_to_html(file_name):
-    html_file = './unit2_1.html'
+    html_file = './unit4_1.html'
 
     with open(html_file, 'r', encoding='utf-8') as file:
         content = file.read()
@@ -33,7 +33,7 @@ def append_image_to_html(file_name):
 
         main_div = soup.find('main')
         new_div = soup.new_tag('div')
-        img_tag = soup.new_tag('img', src=f"images/staticLoading/{file_name}", style="width: 100%;", alt="")
+        img_tag = soup.new_tag('img', src=f"images/springs/{file_name}", loading="lazy", alt="")
         new_div.append(img_tag)
 
         # Append the new div with the image tag to the end of the main tag
@@ -47,7 +47,7 @@ class MyHandler(FileSystemEventHandler):
         if not event.is_directory and event.src_path.endswith(('.png', '.jpg')):
             try:
                 new_name = get_next_image_name()
-                os.rename(os.path.normpath(event.src_path), os.path.normpath(f"images/staticLoading/{new_name}"))
+                os.rename(os.path.normpath(event.src_path), os.path.normpath(f"images/springs/{new_name}"))
                 print(f"Renamed {event.src_path} to {new_name}")
                 append_image_to_html(new_name)
                 print(f"Added {new_name} to HTML.")
@@ -58,7 +58,7 @@ class MyHandler(FileSystemEventHandler):
 def watch_folder():
     event_handler = MyHandler()
     observer = Observer()
-    observer.schedule(event_handler, path='D:/Desktop/notes/images/staticLoading', recursive=False)
+    observer.schedule(event_handler, path='D:/Desktop/notes/images/springs', recursive=False)
     print("Watching for changes in the folder...")
     observer.start()
 
